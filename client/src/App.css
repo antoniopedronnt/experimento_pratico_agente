@@ -18,22 +18,44 @@
 .app-header nav {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .app-header nav a {
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 4px;
   transition: background 0.3s;
+  font-weight: 500;
 }
 
 .app-header nav a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.app-header nav a:nth-child(1),
+.app-header nav a:nth-child(2) {
+  background: rgba(33, 150, 243, 0.3);
+}
+
+.app-header nav a:nth-child(3),
+.app-header nav a:nth-child(4) {
+  background: rgba(76, 175, 80, 0.3);
 }
 
 .app-main {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .app-header nav {
+    flex-direction: column;
+  }
+  
+  .app-header nav a {
+    text-align: center;
+  }
 }

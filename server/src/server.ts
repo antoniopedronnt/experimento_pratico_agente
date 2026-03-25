@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { questionRoutes } from './routes';
+import { questionRoutes, examRoutes } from './routes';
 import { errorHandler } from './middleware';
 
 const app = express();
@@ -17,6 +17,7 @@ app.get('/health', (req, res) => {
 
 // API Routes
 app.use('/api', questionRoutes);
+app.use('/api', examRoutes);
 
 // Error handling (deve ser o último middleware)
 app.use(errorHandler);

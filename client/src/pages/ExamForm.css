@@ -1,0 +1,189 @@
+.exam-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+}
+
+.exam-form h2 {
+  margin-top: 0;
+  color: #282c34;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #282c34;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.radio-label:hover {
+  border-color: #2196f3;
+  background: #f5f5f5;
+}
+
+.radio-label input[type="radio"] {
+  margin-top: 0.3rem;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"]:checked + .radio-content {
+  color: #2196f3;
+}
+
+.radio-content strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.radio-content p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.questions-list {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  background: #fafafa;
+}
+
+.question-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.checkbox-label {
+  display: flex;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-top: 0.3rem;
+  cursor: pointer;
+}
+
+.question-content {
+  flex: 1;
+}
+
+.question-content strong {
+  color: #2196f3;
+}
+
+.alternatives-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  font-size: 0.9rem;
+}
+
+.alternatives-preview span {
+  color: #666;
+}
+
+.alternatives-preview span.correct {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.empty-message {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.empty-message a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.empty-message a:hover {
+  text-decoration: underline;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: #4caf50;
+  color: white;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #45a049;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #757575;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #616161;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}

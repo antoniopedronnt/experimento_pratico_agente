@@ -1,4 +1,5 @@
-import { QuestionInput } from '../models';
+import { QuestionInput, ExamInput, TipoIdentificacao } from '../models';
+import { questionRepository } from '../repositories';
 
 export interface ValidationError {
   field: string;
@@ -56,6 +57,55 @@ export function validateQuestion(input: QuestionInput): ValidationResult {
         message: 'Deve haver pelo menos uma alternativa marcada como correta'
       });
     }
+  }
+
+  return errors.length > 0 
+    ? ValidationResult.failure(errors)
+    : ValidationResult.success();
+}
+
+export function validateExam(input: ExamInput): ValidationResult {
+  const errors: ValidationError[] = [];
+
+  // Validar título
+  if (!input.titulo || input.titulo.trim() === '') {
+    errors.push({
+      field: 'titulo',
+      message: 'Título da prova não pode ser vazio'
+    });
+  }
+
+  // Validar questões
+  if (!input.questoes || input.questoes.length === 0) {
+    errors.push({
+      field: 'questoes',
+      message: 'A prova deve ter pelo menos uma questão'
+    });
+  } else {
+    // Validar se todas as questões existem
+    input.questoes.forEach((questionId, index) => {
+      const question = questionRepository.findById(questionId);
+      if (!question) {
+        errors.push({
+          field: `questoes[${index}]`,
+          message: `Questão com ID "${questionId}" não encontrada`
+        });
+      }
+    });
+  }
+
+  // Validar tipo de identificação
+  if (!input.tipoIdentificacao) {
+    errors.push({
+      field: 'tipoIdentificacao',
+      message: 'Tipo de identificação é obrigatório'
+    });
+  } else if (input.tipoIdentificacao !== TipoIdentificacao.LETRAS && 
+             input.tipoIdentificacao !== TipoIdentificacao.POTENCIAS) {
+    errors.push({
+      field: 'tipoIdentificacao',
+      message: 'Tipo de identificação deve ser "LETRAS" ou "POTENCIAS"'
+    });
   }
 
   return errors.length > 0 

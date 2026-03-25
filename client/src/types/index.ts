@@ -19,3 +19,7 @@ export interface AlternativeInput {
   descricao: string;
   correta: boolean;
 }
+
+// Re-export exam types
+export type { Exam, ExamInput, ExamPreview } from '../services/examService';
+export { TipoIdentificacao } from '../services/examService';
