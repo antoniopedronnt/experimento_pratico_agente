@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { Readable } from 'stream';
 import { examRepository, questionRepository } from '../repositories';
 import { ExamInput, ExamUpdate, TipoIdentificacao, ExamPreview, ExamHeader } from '../models';
 import { validateExam, AppError } from '../middleware';
@@ -173,7 +174,8 @@ export class ExamController {
 
       // Adicionar cada PDF ao ZIP
       pdfs.forEach((pdfStream, index) => {
-        archive.append(pdfStream, { name: `prova_${index + 1}.pdf` });
+        // PDFDocument é um Readable stream
+        archive.append(pdfStream as unknown as Readable, { name: `prova_${index + 1}.pdf` });
       });
 
       // Finalizar o ZIP

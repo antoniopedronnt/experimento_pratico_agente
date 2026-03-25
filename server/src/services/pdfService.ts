@@ -1,5 +1,4 @@
 import PDFDocument from 'pdfkit';
-import { Readable } from 'stream';
 import { ShuffledExam } from './shuffleService';
 import { ExamHeader, TipoIdentificacao } from '../models';
 
@@ -15,7 +14,7 @@ interface PDFGenerationOptions {
 export function generateExamPDF(
   prova: ShuffledExam,
   options: PDFGenerationOptions
-): Readable {
+): PDFKit.PDFDocument {
   const doc = new PDFDocument({
     size: 'A4',
     margins: { top: 50, bottom: 50, left: 50, right: 50 }
@@ -134,6 +133,6 @@ export function generateExamPDF(
 export function generateMultiplePDFs(
   provas: ShuffledExam[],
   options: PDFGenerationOptions
-): Readable[] {
+): PDFKit.PDFDocument[] {
   return provas.map(prova => generateExamPDF(prova, options));
 }

@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "test": "cucumber-js"
+    "test": "cucumber-js && node test-summary.js",
+    "test:report": "node test-summary.js"
   },
   "keywords": [
     "typescript",
