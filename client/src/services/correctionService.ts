@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ModoCorrecao, RelatorioNotas } from '../types';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://experimento-pratico-agente-server.onrender.com/api';
 
 export const correctionService = {
   async correctExam(

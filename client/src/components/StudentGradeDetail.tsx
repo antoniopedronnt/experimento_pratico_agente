@@ -3,11 +3,10 @@ import './StudentGradeDetail.css';
 
 interface StudentGradeDetailProps {
   aluno: ResultadoAluno;
-  tipoIdentificacao: string;
   onClose: () => void;
 }
 
-function StudentGradeDetail({ aluno, tipoIdentificacao, onClose }: StudentGradeDetailProps) {
+function StudentGradeDetail({ aluno, onClose }: StudentGradeDetailProps) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content detail-modal" onClick={(e) => e.stopPropagation()}>
