@@ -164,7 +164,6 @@ function GradingReport({ relatorio, onBack }: GradingReportProps) {
       {selectedAluno && (
         <StudentGradeDetail
           aluno={selectedAluno}
-          tipoIdentificacao={relatorio.tipoIdentificacao}
           onClose={() => setSelectedAluno(null)}
         />
       )}
