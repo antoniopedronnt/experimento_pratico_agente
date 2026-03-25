@@ -1,4 +1,4 @@
-import { QuestionInput, ExamInput, TipoIdentificacao } from '../models';
+import { QuestionInput, ExamInput, TipoIdentificacao, CorrecaoRequest, ModoCorrecao } from '../models';
 import { questionRepository } from '../repositories';
 
 export interface ValidationError {
@@ -106,6 +106,65 @@ export function validateExam(input: ExamInput): ValidationResult {
       field: 'tipoIdentificacao',
       message: 'Tipo de identificação deve ser "LETRAS" ou "POTENCIAS"'
     });
+  }
+
+  return errors.length > 0 
+    ? ValidationResult.failure(errors)
+    : ValidationResult.success();
+}
+
+export function validateCorrection(input: CorrecaoRequest): ValidationResult {
+  const errors: ValidationError[] = [];
+
+  // Validar CSVs
+  if (!input.gabaritoCSV || input.gabaritoCSV.trim() === '') {
+    errors.push({
+      field: 'gabaritoCSV',
+      message: 'CSV de gabarito é obrigatório'
+    });
+  }
+
+  if (!input.respostasCSV || input.respostasCSV.trim() === '') {
+    errors.push({
+      field: 'respostasCSV',
+      message: 'CSV de respostas é obrigatório'
+    });
+  }
+
+  // Validar modo de correção
+  if (!input.modoCorrecao) {
+    errors.push({
+      field: 'modoCorrecao',
+      message: 'Modo de correção é obrigatório'
+    });
+  } else if (input.modoCorrecao !== ModoCorrecao.RIGOROSO && 
+             input.modoCorrecao !== ModoCorrecao.PROPORCIONAL) {
+    errors.push({
+      field: 'modoCorrecao',
+      message: 'Modo de correção deve ser "RIGOROSO" ou "PROPORCIONAL"'
+    });
+  }
+
+  // Validar formato básico do CSV de gabarito
+  if (input.gabaritoCSV) {
+    const lines = input.gabaritoCSV.trim().split('\n');
+    if (lines.length < 2) {
+      errors.push({
+        field: 'gabaritoCSV',
+        message: 'CSV de gabarito deve conter header e pelo menos uma linha de dados'
+      });
+    }
+  }
+
+  // Validar formato básico do CSV de respostas
+  if (input.respostasCSV) {
+    const lines = input.respostasCSV.trim().split('\n');
+    if (lines.length < 2) {
+      errors.push({
+        field: 'respostasCSV',
+        message: 'CSV de respostas deve conter header e pelo menos uma linha de dados'
+      });
+    }
   }
 
   return errors.length > 0 

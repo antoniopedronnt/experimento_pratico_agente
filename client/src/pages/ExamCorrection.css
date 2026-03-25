@@ -1,0 +1,169 @@
+.exam-correction-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.correction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.correction-header h1 {
+  margin: 0;
+  color: #282c34;
+}
+
+.correction-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.exam-info {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.exam-info h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2196f3;
+}
+
+.subtitle {
+  color: #666;
+  margin: 0;
+}
+
+.correction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-section h3 {
+  margin: 0;
+  color: #282c34;
+  font-size: 1.1rem;
+}
+
+.help-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.file-input-wrapper {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #f5f5f5;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  width: 100%;
+}
+
+.file-label:hover {
+  background: #e8f4f8;
+  border-color: #2196f3;
+}
+
+.file-input:focus + .file-label {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.radio-option:hover {
+  border-color: #2196f3;
+  background: #f9f9f9;
+}
+
+.radio-option.selected {
+  border-color: #2196f3;
+  background: #e3f2fd;
+}
+
+.radio-option input[type="radio"] {
+  margin-top: 0.25rem;
+  cursor: pointer;
+}
+
+.radio-content {
+  flex: 1;
+}
+
+.radio-content strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #282c34;
+}
+
+.radio-content p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #d32f2f;
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid #d32f2f;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn-large {
+  font-size: 1.1rem;
+  padding: 1rem 3rem;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

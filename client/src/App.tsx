@@ -4,6 +4,7 @@ import QuestionForm from './pages/QuestionForm';
 import ExamList from './pages/ExamList';
 import ExamForm from './pages/ExamForm';
 import ExamPreview from './pages/ExamPreview';
+import ExamCorrection from './pages/ExamCorrection';
 import './App.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path="/exams/new" element={<ExamForm />} />
             <Route path="/exams/:id/edit" element={<ExamForm />} />
             <Route path="/exams/:id/preview" element={<ExamPreview />} />
+            <Route path="/exams/:id/correct" element={<ExamCorrection />} />
           </Routes>
         </main>
       </div>

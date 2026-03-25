@@ -28,6 +28,11 @@ router.post('/exams/:id/generate', (req, res, next) =>
   examController.generatePDFs(req, res, next)
 );
 
+// POST /api/exams/:id/generate-responses - Gerar CSV de respostas simuladas
+router.post('/exams/:id/generate-responses', (req, res, next) => 
+  examController.generateResponses(req, res, next)
+);
+
 // PUT /api/exams/:id - Atualizar prova
 router.put('/exams/:id', (req, res, next) => 
   examController.update(req, res, next)

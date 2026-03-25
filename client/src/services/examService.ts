@@ -69,5 +69,21 @@ export const examService = {
 
   async delete(id: string): Promise<void> {
     await api.delete(`/exams/${id}`);
+  },
+
+  /**
+   * Gera CSV com respostas simuladas de alunos
+   */
+  async generateResponses(
+    examId: string, 
+    numAlunos: number, 
+    numProvas: number
+  ): Promise<Blob> {
+    const response = await api.post(
+      `/exams/${examId}/generate-responses`,
+      { numAlunos, numProvas },
+      { responseType: 'blob' }
+    );
+    return response.data;
   }
 };

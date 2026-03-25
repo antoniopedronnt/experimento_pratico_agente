@@ -5,6 +5,7 @@ import { validateExam, AppError } from '../middleware';
 import { generateShuffledExams } from '../services/shuffleService';
 import { generateCSV } from '../services/csvService';
 import { generateMultiplePDFs } from '../services/pdfService';
+import { respostaGeneratorService } from '../services/respostaGeneratorService';
 import archiver from 'archiver';
 
 export class ExamController {
@@ -215,6 +216,65 @@ export class ExamController {
       }
 
       res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Gera CSV com respostas simuladas de alunos para testes
+   * POST /api/exams/:id/generate-responses
+   * Body: { numAlunos: number, numProvas: number }
+   */
+  async generateResponses(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { numAlunos = 10, numProvas = 5 } = req.body;
+
+      // Validar entrada
+      if (numAlunos < 1 || numAlunos > 100) {
+        throw new AppError(400, 'Número de alunos deve estar entre 1 e 100');
+      }
+      if (numProvas < 1 || numProvas > 50) {
+        throw new AppError(400, 'Número de provas deve estar entre 1 e 50');
+      }
+
+      // Buscar prova
+      const exam = examRepository.findById(id);
+      if (!exam) {
+        throw new AppError(404, 'Prova não encontrada');
+      }
+
+      // Buscar questões completas
+      const questoes = exam.questoes
+        .map(qid => questionRepository.findById(qid))
+        .filter((q): q is NonNullable<typeof q> => q !== null);
+
+      if (questoes.length === 0) {
+        throw new AppError(400, 'Prova não possui questões cadastradas');
+      }
+
+      // Gerar provas embaralhadas
+      const shuffledExams = generateShuffledExams(
+        questoes,
+        exam.tipoIdentificacao,
+        numProvas
+      );
+
+      // Gerar CSV de respostas simuladas
+      const csvContent = respostaGeneratorService.generateRespostasCSV(
+        shuffledExams,
+        numAlunos,
+        exam.tipoIdentificacao
+      );
+
+      // Retornar CSV
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="respostas_${exam.titulo.replace(/[^a-zA-Z0-9]/g, '_')}.csv"`
+      );
+      res.send(csvContent);
     } catch (error) {
       next(error);
     }

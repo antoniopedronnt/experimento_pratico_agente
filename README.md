@@ -19,7 +19,7 @@ Sistema web full-stack para gerenciar questões fechadas e provas com múltiplas
 - Opção de impressão
 - CRUD completo de provas
 
-### ✅ Geração de PDFs (NOVO!)
+### ✅ Geração de PDFs
 - **Gerar múltiplas provas com questões embaralhadas**
 - **Cada prova tem ordem diferente de questões e alternativas**
 - **Cabeçalho personalizável** (disciplina, professor, data, instituição)
@@ -28,18 +28,31 @@ Sistema web full-stack para gerenciar questões fechadas e provas com múltiplas
 - **Geração de CSV com gabaritos** de todas as provas
 - **Download em arquivo ZIP** (PDFs + CSV)
 
+### ✅ Correção de Provas e Relatório de Notas (NOVO!)
+- **Upload de CSVs**: Gabarito (gerado) + Respostas dos alunos
+- **Dois modos de correção**:
+  - **Rigoroso**: Qualquer erro na questão = nota zero
+  - **Proporcional**: Nota proporcional ao % de acertos
+- **Relatório interativo**: Tabela com notas, filtros, ordenação
+- **Estatísticas da turma**: Média, mediana, maior/menor nota
+- **Detalhes por aluno**: Modal com correção questão por questão
+- **Código de cores**: Verde (≥70), Laranja (50-69), Vermelho (<50)
+
 ## 📋 Estrutura do Projeto
 
 ```
 ├── server/              # Backend (Node.js + TypeScript + Express)
 ├── client/              # Frontend (React + TypeScript + Vite)
-├── setup_project.bat    # Setup inicial do servidor
-├── setup_client.bat     # Setup inicial do cliente
-├── update_server.bat    # Atualizar servidor
-├── update_client.bat    # Atualizar cliente
-├── start_all.bat        # Iniciar tudo (servidor + cliente)
-├── run_server.bat       # Iniciar apenas servidor
-└── run_tests.bat        # Executar testes Cucumber
+├── setup_project.bat      # Setup inicial do servidor
+├── setup_client.bat       # Setup inicial do cliente
+├── update_server.bat      # Atualizar servidor
+├── update_server_pdf.bat  # Instalar dependências PDF
+├── update_server_csv.bat  # Instalar dependências CSV (NOVO!)
+├── update_client.bat      # Atualizar cliente
+├── start_all.bat          # Iniciar tudo (servidor + cliente)
+├── run_server.bat         # Iniciar apenas servidor
+├── run_tests.bat          # Executar testes Cucumber
+└── README.md              # Este arquivo
 ```
 
 ## 🚀 Quick Start
