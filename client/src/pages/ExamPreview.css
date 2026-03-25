@@ -12,6 +12,11 @@
   gap: 1rem;
 }
 
+.action-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .exam-preview-content {
   max-width: 900px;
   margin: 0 auto;

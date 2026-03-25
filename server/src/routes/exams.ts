@@ -23,6 +23,11 @@ router.get('/exams/:id/preview', (req, res, next) =>
   examController.getPreview(req, res, next)
 );
 
+// POST /api/exams/:id/generate - Gerar PDFs e CSV
+router.post('/exams/:id/generate', (req, res, next) => 
+  examController.generatePDFs(req, res, next)
+);
+
 // PUT /api/exams/:id - Atualizar prova
 router.put('/exams/:id', (req, res, next) => 
   examController.update(req, res, next)

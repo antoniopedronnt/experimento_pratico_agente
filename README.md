@@ -19,6 +19,15 @@ Sistema web full-stack para gerenciar questões fechadas e provas com múltiplas
 - Opção de impressão
 - CRUD completo de provas
 
+### ✅ Geração de PDFs (NOVO!)
+- **Gerar múltiplas provas com questões embaralhadas**
+- **Cada prova tem ordem diferente de questões e alternativas**
+- **Cabeçalho personalizável** (disciplina, professor, data, instituição)
+- **Rodapé com número da prova** em cada página
+- **Espaço para nome e CPF do aluno** no final
+- **Geração de CSV com gabaritos** de todas as provas
+- **Download em arquivo ZIP** (PDFs + CSV)
+
 ## 📋 Estrutura do Projeto
 
 ```

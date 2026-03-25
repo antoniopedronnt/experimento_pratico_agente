@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { examRepository, questionRepository } from '../repositories';
-import { ExamInput, ExamUpdate, TipoIdentificacao, ExamPreview } from '../models';
+import { ExamInput, ExamUpdate, TipoIdentificacao, ExamPreview, ExamHeader } from '../models';
 import { validateExam, AppError } from '../middleware';
+import { generateShuffledExams } from '../services/shuffleService';
+import { generateCSV } from '../services/csvService';
+import { generateMultiplePDFs } from '../services/pdfService';
+import archiver from 'archiver';
 
 export class ExamController {
   
@@ -103,6 +107,82 @@ export class ExamController {
       };
 
       res.json(preview);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async generatePDFs(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { quantidade, header } = req.body as { quantidade: number; header: ExamHeader };
+
+      // Validações
+      if (!quantidade || quantidade < 1 || quantidade > 100) {
+        throw new AppError(400, 'Quantidade deve ser entre 1 e 100');
+      }
+
+      if (!header || !header.disciplina || !header.professor || !header.data) {
+        throw new AppError(400, 'Cabeçalho incompleto (disciplina, professor e data são obrigatórios)');
+      }
+
+      const exam = examRepository.findById(id);
+      if (!exam) {
+        throw new AppError(404, 'Prova não encontrada');
+      }
+
+      // Buscar questões completas
+      const questions = exam.questoes.map(questionId => {
+        const question = questionRepository.findById(questionId);
+        if (!question) {
+          throw new AppError(400, `Questão ${questionId} não encontrada`);
+        }
+        return question;
+      });
+
+      // Gerar provas embaralhadas
+      const provasEmbaralhadas = generateShuffledExams(
+        questions,
+        exam.tipoIdentificacao,
+        quantidade
+      );
+
+      // Gerar CSV
+      const csvContent = generateCSV(provasEmbaralhadas);
+
+      // Gerar PDFs
+      const pdfs = generateMultiplePDFs(provasEmbaralhadas, {
+        titulo: exam.titulo,
+        header,
+        tipoIdentificacao: exam.tipoIdentificacao
+      });
+
+      // Criar arquivo ZIP
+      const archive = archiver('zip', { zlib: { level: 9 } });
+
+      // Configurar headers da resposta
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="provas-${exam.titulo.replace(/\s+/g, '_')}.zip"`);
+
+      // Pipe do archive para a resposta
+      archive.pipe(res);
+
+      // Adicionar CSV ao ZIP
+      archive.append(csvContent, { name: 'gabarito.csv' });
+
+      // Adicionar cada PDF ao ZIP
+      pdfs.forEach((pdfStream, index) => {
+        archive.append(pdfStream, { name: `prova_${index + 1}.pdf` });
+      });
+
+      // Finalizar o ZIP
+      archive.finalize();
+
+      // Tratamento de erros do archiver
+      archive.on('error', (err) => {
+        throw new AppError(500, `Erro ao gerar ZIP: ${err.message}`);
+      });
+
     } catch (error) {
       next(error);
     }

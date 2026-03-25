@@ -12,7 +12,11 @@ export class InMemoryExamRepository {
       titulo: input.titulo,
       questoes: [...input.questoes],
       tipoIdentificacao: input.tipoIdentificacao,
-      criadaEm: new Date()
+      criadaEm: new Date(),
+      disciplina: input.disciplina,
+      professor: input.professor,
+      dataProva: input.dataProva,
+      instituicao: input.instituicao
     };
 
     this.exams.set(id, exam);
@@ -39,7 +43,11 @@ export class InMemoryExamRepository {
       ...existing,
       titulo: input.titulo ?? existing.titulo,
       questoes: input.questoes ?? existing.questoes,
-      tipoIdentificacao: input.tipoIdentificacao ?? existing.tipoIdentificacao
+      tipoIdentificacao: input.tipoIdentificacao ?? existing.tipoIdentificacao,
+      disciplina: input.disciplina ?? existing.disciplina,
+      professor: input.professor ?? existing.professor,
+      dataProva: input.dataProva ?? existing.dataProva,
+      instituicao: input.instituicao ?? existing.instituicao
     };
 
     this.exams.set(id, updated);
